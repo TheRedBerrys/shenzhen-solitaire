@@ -18,7 +18,7 @@ var DEBUG_STYLE = false;
  * Time in milliseconds cards take moving around
  * @type {Number}
  */
-var CARD_ANIMATION_SPEED = 200;
+var CARD_ANIMATION_SPEED = 50;
 
 /**
  * Gap in pixels between cards when fanned out.
@@ -816,6 +816,9 @@ function startNewGame(cards, board, seed) {
 	if (seed === undefined || (typeof seed === "string" && seed.length === 0)) {
 		truSeed = new Date().getTime();
 	}
+	if (useLocalStorage) {
+		localStorage.seed = truSeed;
+	}
 	// if input is a numeric string, convert to an integer ("123" and 123 behave differently)
 	if (!isNaN(parseInt(truSeed, 10))) {
 		truSeed = parseInt(truSeed, 10);
@@ -939,6 +942,14 @@ $('#newGame').click(function() {
 $('#seedGame').click(function() {
 	// prompt the user for a seed.
 	var seed = prompt("Enter the random seed for this game.");
+	if (seed !== null) {
+		location.hash = seed;
+		startNewGame(cards, board, seed);
+	}
+});
+
+$('#resetGame').click(function() {
+	var seed = useLocalStorage ? localStorage.seed : null;
 	if (seed !== null) {
 		location.hash = seed;
 		startNewGame(cards, board, seed);
