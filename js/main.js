@@ -18,7 +18,7 @@ var DEBUG_STYLE = false;
  * Time in milliseconds cards take moving around
  * @type {Number}
  */
-var CARD_ANIMATION_SPEED = 50;
+var CARD_ANIMATION_SPEED = 100;
 
 /**
  * Gap in pixels between cards when fanned out.
@@ -877,7 +877,7 @@ function victoryScreen() {
 	looper = setInterval(function () {
 		$(cards[row]).animate({
 			top: parseInt($(cards[row]).css('top')) + 1000
-		}, 1000);
+		}, 500);
 
 		row++;
 		if (row >= cards.length) {
@@ -885,7 +885,7 @@ function victoryScreen() {
 			looper = undefined;
 			isInVictory = false;
 		}
-	}, 50);
+	}, 25);
 }
 
 /**
